@@ -1,0 +1,29 @@
+{
+    "assigned_to_profiles": {
+        "instagram": [
+            "profile1",
+            "profile2"
+        ],
+        "twitter": [
+            "profile1",
+            "profile2"
+        ]
+    },
+    "request_stats": {
+        "instagram": {
+            "end_point": "location",
+            "data_point": "location_posts",
+            "total_requests_sent": 100,
+            "requests_sent_in_last_1_hr": 2
+        }
+    },
+    "friendly_services": [
+        "google",
+        "instagram",
+        "twitter",
+        "tiktok"
+    ],
+    "proxy_type": "static",
+    "max_threads": 0,
+    "active_threads_count":1
+}

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="header-container">
+    <h1>
+        Logs
+        <span class="info-link">
+            <a href="#">info</a>
+        </span>
+    </h1>
+</div>
+
+<table class="proxy-details-table">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Type</th>
+            <th>Task ID</th>
+            <th>Date & Time</th>
+            <th>Screenshot</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.service }}</td>
+            <td>{{ log.type }}</td>
+            <td>{{ log.task_id }}</td>
+            <td>{{ log.datetime }}</td>
+            <td>
+                <div class="thumb-container">
+                    {% if log.pth %}
+                    <img src="http://127.0.0.1:8000/media{{ log.pth }}" class="popup-image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px; object-position: top;">
+                    {% else %}
+                    Screenshot not Found
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if error_message %}
+<div style="color: white; margin-top:30px;" class="error-message">{{ error_message }}</div>
+{% endif %}
+
+<div class="pagination">
+    <span style="color: #f5dd5d;">Pages</span>
+    <ul class="page-links">
+        {% if logs.has_previous %}
+        <li><a href="?page=1">&laquo; First</a></li>
+        <li><a href="?page={{ logs.previous_page_number }}">Previous</a></li>
+        {% endif %}
+
+        {% if logs.has_next %}
+        <li><a href="?page={{ logs.next_page_number }}">Next</a></li>
+        <li><a href="?page={{ logs.paginator.num_pages }}">Last &raquo;</a></li>
+        {% endif %}
+    </ul>
+
+    <div class="go-to" style="display: flex; align-items: center;">
+        <span style="color: #f5dd5d; flex-grow: 1;">Go to</span>
+        <input style="color: #f5dd5d;" type="number" min="1" max="{{ logs.paginator.num_pages }}" value="{{ logs.number }}"
+            oninput="goToPage(this.value)" />
+        <span style="color: #f5dd5d; margin: 0 5px;">Page {{ logs.number }}</span>
+        <span style="color: #f5dd5d; margin: 0 5px;">of {{ logs.paginator.num_pages }}</span>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('.popup-image').forEach(image => {
+        image.addEventListener('click', function () {
+            if (this.src) {
+                var leftPosition = (screen.width - 600) / 2;
+                var topPosition = (screen.height - 400) / 2;
+
+                window.open(this.src, '_blank', 'width=600,height=400,left=' + leftPosition + ',top=' + topPosition);
+            } else {
+                alert('Screenshot Not Found');
+            }
+        });
+    });
+
+    var table = document.querySelector(".proxy-details-table"); 
+    var tbody = table.querySelector("tbody");
+    var rows = tbody.querySelectorAll("tr");
+    var rowsArray = Array.prototype.slice.call(rows);
+
+    rowsArray.sort(function(a, b) {
+        var dateA = new Date(a.cells[3].textContent);
+        var dateB = new Date(b.cells[3].textContent);
+
+        return dateB - dateA;
+    });
+
+    rows.forEach(function(row) {
+        tbody.removeChild(row);
+    });
+
+    rowsArray.forEach(function(row) {
+        tbody.appendChild(row);
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- My CSS -->
+    <!--<link rel="stylesheet" href="style.css">-->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+
+    <title>GaryAutomates</title>
+</head>
+
+<body>
+    <!-- LEFT SIDEBAR -->
+    <section id="sidebar" class="hide" onclick="toggleLeftSidebar()">
+        <img class="custom-side-icon" src="/static/GaryAutomates.png"
+            style="width: 58px; display: block; margin: auto; margin-top: 8%" />
+        <br>
+        <ul class="side-menu top">
+            <li class="active">
+                <a href="log">
+                    <i class="bx bxs-notepad"></i>
+                    <span class="text">Logs</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- LEFT SIDEBAR -->
+    <!-- CONTENT -->
+    <section id="content" style="background-color: #121212; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <nav>
+            <!-- Your website/logo name -->
+            <span class="nav-heading">.</span>
+            <a href="#" class="back-to-admin-link">
+                <i style="color: #f5dd5d;" class='bx bx-arrow-back'></i>
+                <span style="color: #f5dd5d;" class="text">Back to Admin</span>
+            </a>            
+        </nav>
+
+        <!-- NAVBAR -->
+        <!-- MAIN -->
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <!-- MAIN -->
+        <footer>
+            <p>&copy; 2024 GaryAutomates. All Rights Reserved.</p>
+        </footer>
+    </section>
+    <!--<script src="script.js"></script>-->
+    <script src="{% static 'script.js' %}"></script>
+</body>
+
+</html>

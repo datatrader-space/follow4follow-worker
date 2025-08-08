@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaryAutomates</title>
+    <style>
+        .image-table {
+            border-collapse: collapse;
+            width: 120%; /* Adjust width as needed */
+        }
+        .image-table th, .image-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .image-table img {
+            width: 100x; /* Adjust width as needed */
+            height: 300px; /* Adjust height as needed */
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Phone Farm Logs</h1>
+    <h3><a href=" https://bb36-2400-adc5-491-1500-e4f5-c930-9495-5321.ngrok-free.app//admin">Back to Admin</a></h3>
+    <p>This Section Contains Logs for Scraping, Account Switching, Logging in, Profile page Opening and Following. More Features and Enhancements underway</p>
+    <table class="image-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Type</th>
+                <th>Datetime</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            
+            {% for log in logs %}
+                
+                <tr>
+                   
+                    <td>{{log.type}}</td>
+                     <td  ><a href=" https://11fa-2400-adc5-491-1500-1c8d-294e-dbb3-1416.ngrok-free.app/media{{ log.pth}}"><img src=" https://11fa-2400-adc5-491-1500-1c8d-294e-dbb3-1416.ngrok-free.app/media{{ log.pth}}" alt="Image" style="height: 300; width: 400;"></td>
+                    <td>{{ log.datetime }}</td>  </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
