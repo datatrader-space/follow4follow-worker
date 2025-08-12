@@ -104,7 +104,7 @@ task = {
                     ]
                 },
                 "size": 30,
-                "lock_results": True
+                "lock_results": False
             }
         ],
      

@@ -225,4 +225,3 @@ class EndPoints:
                 print(f"Failed to retrieve data from Data House for object_type: {object_type}")
                 return False                                            
                                             
-                        

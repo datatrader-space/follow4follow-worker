@@ -529,7 +529,7 @@ class Instagram(Crawler):
                         pass
                 else:
                     print('job limit exceeded')
-                    return True
+                    return False
         if not self.task.get('add_data'):
             self.task['add_data']={}
         self.reporter.task=task

@@ -117,10 +117,10 @@ def analyze_instagram_logs_no_pandas(log_data):
             else:
                 report["last_log_details"] = f"Type: {last_log.get('type')}"
 
-            if last_log.get('type') == 'failed_login':
+            """             if last_log.get('type') == 'failed_login':
                 report["bot_login_status_for_run"] = "Logged Out"
             else:
-                report["bot_login_status_for_run"] = "Logged In"
+                report["bot_login_status_for_run"] = "Logged In" """
 
 
         found_bot_username = None

@@ -453,7 +453,7 @@ class Browser(object):
                     print(f"[!] WebDriver error: {e}")
                     time.sleep(2)
 
-            # If not successful and more attempts remain
+            return 
             if attempt < max_retries - 1:
                 print("🔁 Page may be stuck. Refreshing...")
                 self.reporter.report_performance(**{

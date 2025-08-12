@@ -116,7 +116,7 @@ class Downloader(object):
         r.task_id=self.reporter.task_id
         r.run_id=self.reporter.run_id
         resp=r.make_request(end_point='downloader',data_point='usave_to_storage_house',url=url,r_type='post',_json={'file_data':base64_text,'bucket_name':bucket_name,'media_type':media_type})
-        if resp['status']=='success':
+        if resp and resp['status']=='success':
             data=resp['data']
             return data['file_path']
         

@@ -1010,7 +1010,14 @@ class EndPoints:
                      return 'failed',{}
                 else:
                     self.currently_used_devices.append(task.get('device',''))
-            if task.get('profile'):   
+            if task.get('profile'):  
+                if not task.get('interact'):
+                    if task.get('data_point') in ['user_followers','location_posts']:
+                        from crawl.models import Task
+                        if Task.objects.all().filter(service=task.get('service')).filter(data_point=task.get('data_point')).filter(input=task.get('input')).filter(status='running'):
+                            self.reports_manager.report_performance(**{'service':'task_manager','end_point':'RunTask','data_point':'run_instagram_task',
+                            'task':task['uuid'], 'type':'another_task_is_scraping_the_input'})
+                            return 'failed', {}
                 if self.currently_active_profiles:
                     
                         if (task.get('os')=='chrome' or task.get('os')=='browser') and len(task.get('profile'))>1 and task.get('profile',{}) in self.currently_active_profiles:
