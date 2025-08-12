@@ -73,7 +73,7 @@ class EndPoints:
                                 for row in inputs:
                                     try:
                                         resp=client.run_bot({'end_point':'Text_Generation','data_point':'names_and_generated_data',
-                                                        'add_data':{'api_key':"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",
+                                                        'add_data':{'api_key':add_data.get('api_key'),
                                                                     'prompt':_prompt
                                                                     }
                                                                                                     
