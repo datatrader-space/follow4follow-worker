@@ -5,7 +5,7 @@ class Xpaths():
             touch_point=getattr(self,kwargs.get('touch_point'))
             return touch_point(**kwargs)
         def get_username_input(self,**kwargs):
-            return ['//input[@aria-label="Phone number, username, or email"]']
+            return ['//input[@aria-label= "Phone number, username, or email"]','//label[text()="Mobile number, username or email"]']
         def get_password_input(self,**kwargs):
             return ['//input[@aria-label="Password"]']
         def click_login_button(self,**kwargs):
@@ -25,8 +25,9 @@ class Xpaths():
             ]
         def get_instagram_login_error(self, **kwargs):
 
-            return '//div[contains(normalize-space(.), "  connected to the internet and try again.")]'
-
+            return '//div[contains(text(), "connected to the internet and try again.")]'
+        def get_allow_all_cookies_banner(self,**kwargs):
+            return["//*[contains(text(),'all cookies')]"]
     class ProfilePage:
         def get_required_xpath(self,**kwargs):
             

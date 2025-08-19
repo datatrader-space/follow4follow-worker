@@ -187,7 +187,7 @@ class EndPoints:
             data_source = add_data.get('data_source', [])
             uuid = kwargs.get('uuid')
           
-
+            self.client.base_url=add_data.get('datahouse_url')
             if not data_source:
                 print("Error: No data_source provided for retrieve_from_datahouse.")
                 return False

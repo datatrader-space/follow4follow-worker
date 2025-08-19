@@ -1132,6 +1132,8 @@ class EndPoints:
 
                         
                         self.browser.visit(url,**kwargs)
+                        locator.locate_by_xpath(xpath=x.LoginPage().get_allow_all_cookies_banner(),click=True,retries=3)
+                           
                         print(f"✅ login started: {start_time}")
                         self.reporter.report_performance(**{
                             'service': 'instagram',

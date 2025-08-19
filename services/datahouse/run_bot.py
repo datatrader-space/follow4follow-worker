@@ -84,33 +84,6 @@ import uuid
 #                                             }
 # }
 
-task = {
-    "service": "datahouse",
-    "ref_id": 3,
-    "end_point": "retrieve",
-    "data_point": "retrieve_from_datahouse",
-    "add_data": {
-        "data_source": [
-            {
-                "type": "data_house",
-                "object_type": "profile",
-                "filters": {
-                    #"followers_count.range": {"min": 500, "max": 10000},
-                    "info__gender.in": ["M", "O"],
-                    "service.equal": "instagram",
-                    "tasks__uuid.in": [
-                        "a8b61d6e-9d3e-4ac6-8c2b-bc59f70ec888",
-                        "9fd81b5b-0412-499d-bdc6-d2920fdf2a32"
-                    ]
-                },
-                "size": 30,
-                "lock_results": False
-            }
-        ],
-     
-    },
 
-    "uuid": "1c8845ba-08f7-11f0-ba08-f079596d88b9"
-}
 d=DataHouse()
-d.run_bot(task)
+#d.run_bot(task)
