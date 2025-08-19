@@ -213,7 +213,7 @@ class Instagram(Crawler):
         
         incognito=False
        
-        self.open_custom_browser(selenium_wire=selenium_wire,headless=self.task.get('headless'),mobile_emulation=self.task.get('mobile_emulation'),incognito=incognito)
+        self.open_custom_browser(selenium_wire=False,headless=self.task.get('headless'),mobile_emulation=self.task.get('mobile_emulation'),incognito=incognito)
         
         
         
