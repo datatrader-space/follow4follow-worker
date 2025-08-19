@@ -80,23 +80,23 @@ WSGI_APPLICATION = 'crawlerserver.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+""" DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': '5432',
-#         #'ATOMIC_REQUESTS': True,
-#     }
-# }
+} """
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': config('DB_NAME'),
+      'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+       'HOST': config('DB_HOST'),
+        'PORT': '5432',
+        #'ATOMIC_REQUESTS': True,
+    }
+ }
 
 
 
@@ -189,8 +189,9 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS=10000
 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') 
-STORAGE_HOUSE_URL='http://192.168.1.19'
-DATA_HOUSE_URL='http://192.168.1.88/'
-CENTRAL_URL='http://localhost:80/sessionbot/'
+
+STORAGE_HOUSE_URL='http://50.18.253.181/'
+DATA_HOUSE_URL='http://13.56.141.19/'
+CENTRAL_URL='http://3.101.197.42/sessionbot/'
 
 SERVER_ID=11
