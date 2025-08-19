@@ -1132,7 +1132,7 @@ class EndPoints:
 
                         
                         self.browser.visit(url,**kwargs)
-                        locator.locate_by_xpath(xpath=x.LoginPage().get_allow_all_cookies_banner(),click=True,retries=3)
+                        
                            
                         print(f"✅ login started: {start_time}")
                         self.reporter.report_performance(**{
@@ -1207,7 +1207,7 @@ class EndPoints:
                         x = Xpaths()
                         locator = Locator()
                         locator.browser = self.browser
-
+                        locator.locate_by_xpath(xpath=x.LoginPage().get_allow_all_cookies_banner(),click=True,retries=3)
                         active_page = locator.identify_active_page(
                             page_locators_dict={
                                 'LoginPage': x.LoginPage().get_username_input(),
