@@ -1149,6 +1149,7 @@ class EndPoints:
                             'timestamp': start_time
                         })
                         _profile = ChildBot.objects.filter(service=kwargs['service']).filter(username=kwargs.get('profile'))
+                        print(_profile)
                         if not _profile:
                             self.reporter.report_performance(**{
                             'service': 'instagram',

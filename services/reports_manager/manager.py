@@ -46,6 +46,9 @@ class Manager:
                         e.create_output(**{'service':'instagram',
                                                 'task':self.task.uuid,'type':'TaskStoppedbyUser',})
                         raise Exception('TaskStopped')
+                
+
+                
     def report_unhandled_scenario(self,**kwargs):
         e=EndPoints()
         kwargs.update({'_end_point':'unhandled','_data_point':kwargs.get('type')})

@@ -78,32 +78,41 @@ class DeviceReportsAdmin(admin.ModelAdmin):
     list_display=['serial_number','service','current_state','disconnected_since','last_report_time']
 admin.site.register(DeviceReport,DeviceReportsAdmin)
 class TaskAdmin(admin.ModelAdmin):
-    list_filter=['ref_id','status','profile','os','end_point','data_point','device']
-    list_display=['uuid','name','service','end_point','data_point','input','os','success_count','failed_count','repeat','profile','device','status','retries_count','dependent_on']
+    list_filter = ['ref_id','status','profile','os','end_point','data_point','device']
+    
+    # Add created_at and updated_at here
+    list_display = [
+        'uuid','name','service','end_point','data_point','input','os',
+        'success_count','failed_count','repeat','profile','device',
+        'status','retries_count','dependent_on','created_at','updated_at'
+    ]
+    
     actions = ['start_tasks','stop_tasks','resume_tasks','pause_tasks','clone_tasks']
-    search_fields = (
-                     'profile',
+    
+    search_fields = ('profile',)
 
-                     )
-    @admin.action(description='Pause Seleted Tasks')
+    @admin.action(description='Pause Selected Tasks')
     def pause_tasks(self, request, queryset):
         queryset.update(paused=True)
-    @admin.action(description='Start Seleted Tasks')
-    def start_tasks(self,request,queryset):
+
+    @admin.action(description='Start Selected Tasks')
+    def start_tasks(self, request, queryset):
         queryset.update(status='pending')
-    @admin.action(description='Stop Seleted Tasks')
-    def stop_tasks(self,request,queryset):
+
+    @admin.action(description='Stop Selected Tasks')
+    def stop_tasks(self, request, queryset):
         queryset.update(status='completed')
-    @admin.action(description='Resume Seleted Tasks')
-    def resume_tasks(self,request,queryset):
-        queryset.update(status='pending')
-        queryset.update(paused=False)
-    @admin.action(description='Clone Seleted Tasks')
-    def clone_tasks(self,request,queryset):
+
+    @admin.action(description='Resume Selected Tasks')
+    def resume_tasks(self, request, queryset):
+        queryset.update(status='pending', paused=False)
+
+    @admin.action(description='Clone Selected Tasks')
+    def clone_tasks(self, request, queryset):
         for task in queryset:
             task.clone()
-        
-admin.site.register(Task,TaskAdmin)
+
+admin.site.register(Task, TaskAdmin)
 
 class InteractionAdmin(admin.ModelAdmin):
 

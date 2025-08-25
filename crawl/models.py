@@ -396,6 +396,8 @@ class Task(models.Model):
     failed_count=models.IntegerField(default=0)
     blacklisted_usernames=models.TextField(null=True,blank=True)
     consumed_usernames=models.TextField(null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)  # set once when created
+    updated_at = models.DateTimeField(auto_now=True)      # updated automatically on save
 
 
     def __str__(self):

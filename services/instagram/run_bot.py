@@ -501,14 +501,23 @@ class Instagram(Crawler):
             
         
     def perform_action(self, **action):
-        
-        if not self.crawl_attempts>=self.max_crawl_attempts:
-            resp=self.perform(**action)
-            
+        try:
+            if not self.crawl_attempts >= self.max_crawl_attempts:
+                resp = self.perform(**action)
+                return {"success": True, "response": resp}
 
-               
-            return {'sucess',True}
-            
+        except Exception as e:
+            # Log or print the exception if needed
+            print(f"Exception occurred: {e}")
+
+            # Ensure browser is closed
+            try:
+                self.driver.quit()
+            except Exception:
+                pass  # in case driver is already closed
+
+            # Return cleanly
+            return {"success": False, "error": str(e)}
 
         print('Add Task Failed Exception along with Retries here.')
     def run_bot(self, query):

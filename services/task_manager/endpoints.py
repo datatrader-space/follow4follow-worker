@@ -145,10 +145,11 @@ class EndPoints:
                 from services.resource_manager.profiles import Profile
                 
                 func(task)
-            except Exception as e:          
+            except Exception as e:
+                          
                 self.reports_manager.report_performance(**{'service':'task_manager','end_point':'FireUp','data_point':'fire_up_task',
                                         'type':'task_run_failed','task':str(task['uuid']), 'traceback':traceback.format_exc(),'run_id':task['run_id']
-                                        })   
+                                        })    
                 if 'NoProfileResourceProvided' in str(e):
                     
                     s.change_state_of_task(task=task,state='completed')
@@ -233,6 +234,7 @@ class EndPoints:
                             kwargs.update({'task':task,'func':func,'end_point':'FireUp','data_point':'fire_up_task'})
                             th=threading.Thread(target=self.internal_get_required_data_point,kwargs=kwargs)                               
                             monitor_queue.append(task)
+                            
                             th.start()
             self.pause=False
               
@@ -1268,7 +1270,7 @@ while True:
         print(e)   
         print(traceback.format_exc()) 
     else:
-        time.sleep(3)
+        time.sleep(10)
 
             
             

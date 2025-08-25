@@ -363,7 +363,7 @@ def sync(request):
 
         all_successful_sync_ids = {}
         errors = []  # List to store errors for failed rows
-      
+        print(data)
         for row in data.get('data'):
             payload = row
             object_id = payload.get("uuid")

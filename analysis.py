@@ -84,7 +84,7 @@ def analyze_instagram_logs_no_pandas(log_data):
             "bot_username": "N/A",
             "last_log_details": "N/A",
             "task_completion_status": "Incomplete (Stopped Without Completion Log)",
-            "bot_login_status_for_run": "Logged In",
+            "bot_login_status_for_run": False,
             "scraped_data_summary": {},
             "data_enrichment_summary":{},
             "start_datetime": None,
@@ -667,7 +667,8 @@ def summarize_run_log_folder(task_dict, report_creation_task_uuid):
         "2fa_successes": 0,
         "2fa_failures": 0,
         "2fa_total_time": 0.0,
-        "login_exceptions": []
+        "login_exceptions": [],
+        "bot_login_status_for_run":""
     }
 
     first_login_attempt_start = None
@@ -771,6 +772,12 @@ def summarize_run_log_folder(task_dict, report_creation_task_uuid):
     else:
         login_summary["total_login_time"] = 0.0
 
+
+    # ✅ Set bot login status
+    if login_summary["successful_logins"] > 0:
+        login_summary["bot_login_status_for_run"] = "Logged In"
+    else:
+        login_summary["bot_login_status_for_run"] = "Failed"
 
     summary["login_summary"] = login_summary
 

@@ -42,7 +42,7 @@ class Browser(object):
         self.service='twitter'
         self.user_agent=None
         self.task=None
-        self.reproter=None
+        self.reporter=None
     def handle_password_protected_proxy(self,proxy):
         proxy=proxy.split(':')
         PROXY_HOST = proxy[2]  # rotating proxy or host
@@ -113,10 +113,12 @@ class Browser(object):
         ['blocking']
     );"""
         return manifest_json,background_js
+    
+    
     def initialize_chrome_browser(self,headless=False,refresh_profile=False,profile=False,incognito=False,selenium_wire=False,mobile_emulation=False,enable_geolocation=False,user_data_dir=False,use_cookies=False,use_proxies=False):
          from base.browser_utils import ChromeDriverCheckerandDownloader
          c=ChromeDriverCheckerandDownloader()
-         c.reporter=self.reporter
+         c.reporter=self.reporter 
          c.task=self.task['uuid']
          c.check_and_download_chromedriver()
          if not self.browser_proxies:
@@ -261,7 +263,7 @@ class Browser(object):
          if selenium_wire:
             from seleniumwire import webdriver as selenium_wire_web_driver
             self.driver =selenium_wire_web_driver.Chrome( service=s,options=self.chrome_options,seleniumwire_options=options)
-#seleniumwire_options=options,
+            #seleniumwire_options=options,
          
          else:
         
@@ -271,7 +273,7 @@ class Browser(object):
 
          if use_cookies:
               cookie_path=use_cookies
-              self.driver.get('https://www.google.com/')
+            #   self.driver.get('https://www.google.com/')
               time.sleep(5)              
               cookies = pickle.load(open(cookie_path, "rb"))
               for cookie in cookies:
@@ -384,8 +386,7 @@ class Browser(object):
     def wait_until_page_loaded(self, wait_timeout=50, max_retries=5, **kwargs):
         """
         Waits until a web page is fully loaded and has at least one of:
-        <input>, <button>, or <form>. This ensures the page is not stuck
-        on a loader or blank shell, and is ready for user interaction.
+        <input>, <button>, or <form>. Ensures the page is ready for user interaction.
         """
         from selenium.common.exceptions import WebDriverException
         import time
@@ -393,7 +394,6 @@ class Browser(object):
 
         for attempt in range(max_retries):
             print(f"\n⏳ Waiting for full page load (Attempt {attempt + 1})")
-
             start_time = time.time()
 
             # Log start
@@ -402,7 +402,7 @@ class Browser(object):
                 'end_point': 'page_load',
                 'data_point': 'start',
                 'page': self.driver.current_url,
-                'type': 'page_loading_start',  # ✅ Corrected from 'page_loading_started'
+                'type': 'page_loading_start',
                 'task': kwargs.get('uuid'),
                 'run_id': kwargs.get('run_id'),
                 'critical': False,
@@ -422,7 +422,6 @@ class Browser(object):
                         return (
                             document.getElementsByTagName('input').length > 0 ||
                             document.getElementsByTagName('button').length > 0 ||
-                           
                             document.getElementsByTagName('form').length > 0
                         );
                     """)
@@ -442,9 +441,9 @@ class Browser(object):
                             'critical': False,
                             'timestamp': end_time,
                             'max_attempts': attempt + 1,
-                            'latency': latency,  # ✅ Include latency
+                            'latency': latency,
                         })
-                        return
+                        return  # ✅ Only return if successful
 
                     print("⚠️ No <input>, <button>, or <form> found — page may not be ready.")
                     time.sleep(1)
@@ -453,10 +452,11 @@ class Browser(object):
                     print(f"[!] WebDriver error: {e}")
                     time.sleep(2)
 
-            return 
+            # If we reach here, page did not load in this attempt
             if attempt < max_retries - 1:
                 print("🔁 Page may be stuck. Refreshing...")
-                self.reporter.report_performance(**{
+                try:
+                    self.reporter.report_performance(**{
                         'service': 'instagram',
                         'end_point': 'page_load',
                         'data_point': 'page_refresh',
@@ -468,7 +468,6 @@ class Browser(object):
                         'timestamp': time.time(),
                         'max_attempts': attempt + 1,
                     })
-                try:
                     self.driver.refresh()
                     time.sleep(3)
                     self.reporter.report_performance(**{
@@ -518,10 +517,11 @@ class Browser(object):
                     'critical': True,
                     'timestamp': end_time,
                     'max_attempts': attempt + 1,
-                    'latency': latency  # ✅ Log how long it waited before failing
+                    'latency': latency
                 })
 
         raise RuntimeError("Page did not load required interactive elements after retries.")
+
     
     def visit(self, url,**kwargs):
         """Visit URL and wait until page is fully loaded"""
